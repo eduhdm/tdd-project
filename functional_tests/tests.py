@@ -1,10 +1,11 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from lists.models import Item
 import time
 import unittest
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -20,7 +21,7 @@ class NewVisitorTest(unittest.TestCase):
     def test_can_start_a_list_and_retrieve_it_later(self):
 
         # Maria decidiu utilizar o novo app TODO. Ela entra em sua página principal:
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # Ela nota que o título da página menciona TODO
         self.assertIn('To-Do', self.browser.title)
@@ -76,6 +77,3 @@ class ItemModelTest(unittest.TestCase):
         second_saved_item = saved_items[1]
         self.assertEqual(first_saved_item.text, 'O primeiro item')
         self.assertEqual(second_saved_item.text, 'O segundo item')
-
-if __name__ == '__main__':
-    unittest.main()
