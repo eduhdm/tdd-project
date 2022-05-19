@@ -1,0 +1,4 @@
+O processo do TDD consiste em escrever os casos de teste e ir refatorando
+o código até que todos testes passem.
+Para ter testes funcionais é necessário a criação de uma base sólida de testes
+unitários que garantem que o código escrito é mínimo e modularizado.
