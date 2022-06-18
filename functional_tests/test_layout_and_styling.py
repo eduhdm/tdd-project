@@ -2,11 +2,12 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.common.exceptions import WebDriverException
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from functional_tests.base import FunctionalTest
 from lists.models import Item
 import time
 import unittest
 
-class LayoutAndStylingTest(StaticLiveServerTestCase):
+class LayoutAndStylingTest(FunctionalTest):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
