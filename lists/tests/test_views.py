@@ -3,7 +3,7 @@ from django.test import TestCase
 from lists.models import Item, List
 from lists.views import home_page
 from django.http import HttpRequest
-
+from django.utils.html import escape
 class HomePageTest(TestCase):
 
     def test_root_url_resolves_to_home_page_view(self):
@@ -59,6 +59,13 @@ class ListAndItemModelsTest(TestCase):
         self.assertEqual(second_saved_item.list, my_list)
 
 class NewItemTest(TestCase):
+
+    def test_validation_errors_are_sent_back_to_home_page_template(self):
+        response = self.client.post('/lists/new', data={'item_text': ''})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home.html')
+        expected_error = escape("You can't have an empty list item")
+        self.assertContains(response, expected_error)
 
     def test_can_save_a_POST_request_to_an_existing_list(self):
         other_list = List.objects.create()
